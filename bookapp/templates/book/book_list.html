@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listo de Libros</title>
+</head>
+<body>
+    <h1>Listado de Libros</h1>
+    <ul>
+        {% for book in boos %}
+        <li>
+            <h2> {{ book.title }} </h2>
+            <p> {{ book.author }} </p>
+            <p> {{ book.rating }} </p>
+        </li>
+        {% empty %}
+        <li>No hay libros</li>
+        {% endfor %}
+    </ul>
+    
+    <form action="{% 'Book_Create' %}">
+        <button type="submit">New Book</button>
+    </form>
+</body>
+</html>
