@@ -3,7 +3,7 @@ from django.core.validators import MaxValueValidator
 from django.db import models
 from django.db.models import Model, CASCADE
 
-class Task(models.Model):
+class Book(models.Model):
     title = models.CharField(max_length=150)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=500)
