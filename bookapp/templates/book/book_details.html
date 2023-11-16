@@ -6,6 +6,13 @@
     <title>Detalles Libros</title>
 </head>
 <body>
-    
+    <h2>Detalles del Libro</h2>
+    <p><strong>Título:</strong> {{ book.titulo }}</p>
+    <p><strong>Autor:</strong> {{ book.autor }}</p>
+    <p><strong>Descripción:</strong> {{ book.descripcion }}</p>
+    <p><strong>Rating:</strong> {{ book.rating }}</p>
+    <p><strong>Fecha de Creación:</strong> {{ book.fecha_creacion }}</p>
+    <p><strong>Fecha Actualizada:</strong> {{ book.fecha_actualizada }}</p>
+    <a href="{% url 'Book_List' %}">Volver al Listado de Libros</a>
 </body>
 </html>

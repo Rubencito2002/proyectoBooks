@@ -8,19 +8,14 @@
 <body>
     <h1>Listado de Libros</h1>
     <ul>
-        {% for book in boos %}
+        {% for book in books %}
         <li>
-            <h2> {{ book.title }} </h2>
-            <p> {{ book.author }} </p>
-            <p> {{ book.rating }} </p>
+            <p> <a href="{% url 'Book_Detail' pk=book.pk %}"> {{ book.title }} </a> </p>
+            <p>author: {{ book.author.username }}</p>
+            <p>rating: {{ book.rating }}</p>
         </li>
-        {% empty %}
-        <li>No hay libros</li>
         {% endfor %}
     </ul>
-    
-    <form action="{% 'Book_Create' %}">
-        <button type="submit">New Book</button>
-    </form>
+    <p><a href="{% url 'Book_Create' %}">Nuevo Libro</a></p>
 </body>
 </html>
