@@ -9,10 +9,10 @@
     <body>
         <h1>Listado de Libros</h1>
         {% for book in object_list %}
-        <article>    
-            <p> {{ book.title }} </p>
-            <a href="{% url 'Book_Details' pk=book.pk %}" role="button">Detalles</a>    
-        </article>
+            <article>    
+                <p> {{ book.title }} </p>
+                <a href="{% url 'Book_Details' pk=book.pk %}" role="button">Detalles</a>    
+            </article>
         {% endfor %}
         <a href="{% url 'Book_Create' %}" role="button">Nuevo Libro</a>
     </body>

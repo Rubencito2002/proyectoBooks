@@ -26,7 +26,7 @@ class BookList(ListView):
 
 class BookDetail(DetailView):
     model = Book
-    bookDetail_template = 'book/book_details.html'
+    template_name = 'book/book_details.html'
 
 class BookCreate(View):
     books = Book.objects.all()
