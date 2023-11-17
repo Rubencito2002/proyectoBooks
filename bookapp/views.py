@@ -64,4 +64,4 @@ class BookEdit(View):
             book = form.save(commit=False)
             book.save()
             return redirect('Book_List')
-        return render(request, self.bookEdit_template , {'form': form})
+        return render(request, self.bookEdit_template , {'book': book, 'form': form})
