@@ -1,11 +1,10 @@
 {% extends 'bookapp/base.html' %}
 {% block content %}
     <h2>Detalles del Libro</h2>
-    <p><strong>Título:</strong> {{ book.title }}</p>
-    <p><strong>Autor:</strong> {{ book.author }}</p>
-    <p><strong>Descripción:</strong> {{ book.description }}</p>
-    <p><strong>Rating:</strong> {{ book.rating }}</p>
-    <p><strong>Fecha de Creación:</strong> {{ book.fecha_creacion }}</p>
-    <p><strong>Fecha Actualizada:</strong> {{ book.fecha_actualizada }}</p>
-    <a href="{% url 'Book_List' %}" role="button">Volver al Listado de Libros</a>
+    <article>
+        <p><strong>Título:</strong> {{ book.title }}</p>
+        <p><strong>Autor:</strong> {{ book.author }}</p>
+        <p><strong>Descripción:</strong> {{ book.description }}</p>
+        <p><strong>Rating:</strong> {{ book.rating }}</p>
+    </article>
 {% endblock %}
