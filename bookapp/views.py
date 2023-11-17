@@ -1,4 +1,3 @@
-from datetime import timezone
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 from .models import Book
@@ -56,10 +55,10 @@ class BookEdit(View):
     def get(self, request, pk):
         book = get_object_or_404(Book, pk=pk)
         form = BookForm(instance=book)
-        return render(request, self.bookEdit_template , {'books': book, 'form': form})
+        return render(request, self.bookEdit_template , {'book': book, 'form': form})
     
     def post(self, request, pk):
-        book = Book.objects.get(pk=pk)
+        book = get_object_or_404(Book, pk=pk)
         form = BookForm(request.POST, instance = book)
         if form.is_valid():
             book = form.save(commit=False)
