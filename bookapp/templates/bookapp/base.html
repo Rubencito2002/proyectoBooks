@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>user Page</title>
+        <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><strong>Book Store</strong></li>
+                </ul>
+                <ul>
+                    <li><a href="{% url 'Book_List' %}" role="button">Listado de Libros</a></li>
+                    <li><a href="{% url 'Book_Create' %}" role="button">Nuevo Libro</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+</html>

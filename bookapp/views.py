@@ -26,11 +26,11 @@ class BookList(ListView):
 
 class BookDetail(DetailView):
     model = Book
-    template_name = 'book/book_details.html'
+    template_name = 'bookapp/book_details.html'
 
 class BookCreate(View):
     books = Book.objects.all()
-    bookForm_template = 'book/book_form.html'
+    bookForm_template = 'bookapp/book_form.html'
 
     def actualizarBook(self):
         self.books = Book.objects.all()
