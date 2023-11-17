@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 from .models import Book
@@ -50,24 +51,18 @@ class BookCreate(View):
         return render(request, self.bookForm_template , {'books': self.actualizarBook, 'form': form})
     
 class BookEdit(View):
-    bookForm_template = 'bookapp/book_edit.html'
-
-    def get(self, request, pk):
-        books = get_object_or_404(Book, pk=pk)
-        return render(request, self.bookForm_template , {'books': books})
+    bookEdit_template = 'bookapp/book_edit.html'
     
-"""
-def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+    def get(self, request, pk):
+        book = get_object_or_404(Book, pk=pk)
+        form = BookForm(instance=book)
+        return render(request, self.bookEdit_template , {'books': book, 'form': form})
+    
+    def post(self, request, pk):
+        book = Book.objects.get(pk=pk)
+        form = BookForm(request.POST, instance = book)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('post_detail', pk=post.pk)
-    else:
-        form = PostForm(instance=post)
-    return render(request, 'blog/post_edit.html', {'form': form})
-"""
+            book = form.save(commit=False)
+            book.save()
+            return redirect('Book_List')
+        return render(request, self.bookEdit_template , {'form': form})

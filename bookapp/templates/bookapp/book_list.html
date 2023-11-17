@@ -6,7 +6,6 @@
         <article>    
             <p> {{ book.title }} </p>
             <a href="{% url 'Book_Details' pk=book.pk %}" role="button">Detalles</a>    
-            <a href="{% url 'Book_Edit' pk=book.pk %}" role="button">Editar</a>    
         </article>
     {% endfor %}
 {% endblock %}
