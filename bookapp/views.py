@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 from .models import Book
 from .forms import BookForm
@@ -48,3 +48,10 @@ class BookCreate(View):
             return redirect('Book_List')
         books = Book.objects.all()
         return render(request, self.bookForm_template , {'books': self.actualizarBook, 'form': form})
+    
+class BookEdit(View):
+    bookForm_template = 'bookapp/book_edit.html'
+
+    def get(self, request, pk):
+        books = get_object_or_404(Book, pk=pk)
+        return render(request, self.bookForm_template , {'books': books})
