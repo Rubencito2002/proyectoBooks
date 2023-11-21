@@ -4,7 +4,8 @@
     {% for book in object_list %}
         <article>    
             <p> {{ book.title }} </p>
-            <a href="{% url 'Book_Details' pk=book.pk %}" role="button">Detalles</a>    
+            <a href="{% url 'Book_Details' pk=book.pk %}" role="button">Detalles</a>
+            <a href="{% url 'Book_Delete' pk=book.pk %}" role="button">Eliminar</a> 
         </article>
     {% endfor %}
 {% endblock %}

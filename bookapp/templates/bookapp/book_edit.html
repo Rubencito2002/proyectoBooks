@@ -1,9 +1,12 @@
 {% extends 'bookapp/base.html' %}
 {% block content %}
     <h2>Añadir Libro</h2>
+    <!--
     <form action="{% url 'Book_Edit' pk=book.pk %}" method="post">
+    -->
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Libro Editado</button>
+        <button type="submit" value="Update">Libro Editado</button>
     </form>
 {% endblock %}

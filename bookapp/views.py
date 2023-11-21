@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 from .models import Book
 from .forms import BookForm
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 
 """
 class BookList(View):
@@ -19,6 +20,23 @@ class BookDetail(View):
     def get(self, request, id):
         books = Book.objects.get(id=id)
         return render(request, self.bookDetail_template , {'books': books})
+
+class BookEdit(View):
+    bookEdit_template = 'bookapp/book_edit.html'
+    
+    def get(self, request, pk):
+        book = get_object_or_404(Book, pk=pk)
+        form = BookForm(instance=book)
+        return render(request, self.bookEdit_template , {'book': book, 'form': form})
+    
+    def post(self, request, pk):
+        book = get_object_or_404(Book, pk=pk)
+        form = BookForm(request.POST, instance = book)
+        if form.is_valid():
+            book = form.save(commit=False)
+            book.save()
+            return redirect('Book_List')
+        return render(request, self.bookEdit_template , {'book': book, 'form': form})
 """
 
 class BookList(ListView):
@@ -48,20 +66,14 @@ class BookCreate(View):
             return redirect('Book_List')
         books = Book.objects.all()
         return render(request, self.bookForm_template , {'books': self.actualizarBook, 'form': form})
-    
-class BookEdit(View):
-    bookEdit_template = 'bookapp/book_edit.html'
-    
-    def get(self, request, pk):
-        book = get_object_or_404(Book, pk=pk)
-        form = BookForm(instance=book)
-        return render(request, self.bookEdit_template , {'book': book, 'form': form})
-    
-    def post(self, request, pk):
-        book = get_object_or_404(Book, pk=pk)
-        form = BookForm(request.POST, instance = book)
-        if form.is_valid():
-            book = form.save(commit=False)
-            book.save()
-            return redirect('Book_List')
-        return render(request, self.bookEdit_template , {'book': book, 'form': form})
+
+class BookEdit(UpdateView):
+    model = Book
+    fields = ["title", "author", "description", "rating"]
+    template_name = 'bookapp/book_edit.html'
+    success_url = reverse_lazy('Book_List')
+
+class BookDelete(DeleteView):
+    model = Book
+    template_name = 'bookapp/book_delete.html'
+    success_url = reverse_lazy('Book_List')

@@ -1,0 +1,10 @@
+{% extends 'bookapp/base.html' %}
+{% block content %}
+    <h2>Eliminar Libro</h2>
+    <form method="post">
+        {% csrf_token %}
+        <p>¿Quieres eliminar este libro "{{ object }}"?</p>
+        {{ form }}
+        <button type="submit" value="Confirm">Eliminar Libro</button>
+    </form>
+{% endblock %}
