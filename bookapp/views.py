@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from .models import Book
-from .forms import BookForm
+from .forms import BookForm, BookFormSet
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 
 """
@@ -37,6 +37,27 @@ class BookEdit(View):
             book.save()
             return redirect('Book_List')
         return render(request, self.bookEdit_template , {'book': book, 'form': form})
+
+    class BookCreate(View):
+    books = Book.objects.all()
+    bookForm_template = 'bookapp/book_form.html'
+
+    def actualizarBook(self):
+        self.books = Book.objects.all()
+        return self.books
+    
+    def get(self, request):
+        books = Book.objects.all()
+        form = BookForm()
+        return render(request, self.bookForm_template , {'books': self.actualizarBook, 'form': form})
+
+    def post(self, request):
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Book_List')
+        books = Book.objects.all()
+        return render(request, self.bookForm_template , {'books': self.actualizarBook, 'form': form})
 """
 
 class BookList(ListView):
@@ -57,23 +78,20 @@ class BookDelete(DeleteView):
     template_name = 'bookapp/book_delete.html'
     success_url = reverse_lazy('Book_List')
 
-class BookCreate(View):
-    books = Book.objects.all()
-    bookForm_template = 'bookapp/book_form.html'
 
-    def actualizarBook(self):
-        self.books = Book.objects.all()
-        return self.books
+class BookCreate(View):
+    bookForm_template = 'bookapp/book_form.html'
+    formset_class = BookFormSet
     
     def get(self, request):
-        books = Book.objects.all()
-        form = BookForm()
-        return render(request, self.bookForm_template , {'books': self.actualizarBook, 'form': form})
-
+        return render(request, self.bookForm_template , {'form': self.formset_class})
+    
     def post(self, request):
-        form = BookForm(request.POST)
-        if form.is_valid():
-            form.save()
+        formset = self.formset_class(request.POST, prefix='libro')
+        if formset.is_valid():
+            for form in formset:
+                if form.has_changed():
+                    form.save()
             return redirect('Book_List')
         books = Book.objects.all()
         return render(request, self.bookForm_template , {'books': self.actualizarBook, 'form': form})
