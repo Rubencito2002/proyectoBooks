@@ -46,6 +46,17 @@ class BookDetail(DetailView):
     model = Book
     template_name = 'bookapp/book_details.html'
 
+class BookEdit(UpdateView):
+    model = Book
+    fields = ["title", "author", "description", "rating"]
+    template_name = 'bookapp/book_edit.html'
+    success_url = reverse_lazy('Book_List')
+
+class BookDelete(DeleteView):
+    model = Book
+    template_name = 'bookapp/book_delete.html'
+    success_url = reverse_lazy('Book_List')
+
 class BookCreate(View):
     books = Book.objects.all()
     bookForm_template = 'bookapp/book_form.html'
@@ -66,14 +77,3 @@ class BookCreate(View):
             return redirect('Book_List')
         books = Book.objects.all()
         return render(request, self.bookForm_template , {'books': self.actualizarBook, 'form': form})
-
-class BookEdit(UpdateView):
-    model = Book
-    fields = ["title", "author", "description", "rating"]
-    template_name = 'bookapp/book_edit.html'
-    success_url = reverse_lazy('Book_List')
-
-class BookDelete(DeleteView):
-    model = Book
-    template_name = 'bookapp/book_delete.html'
-    success_url = reverse_lazy('Book_List')

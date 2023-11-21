@@ -6,6 +6,7 @@
         <p><strong>Autor:</strong> {{ book.author }}</p>
         <p><strong>Descripción:</strong> {{ book.description }}</p>
         <p><strong>Rating:</strong> {{ book.rating }}</p>
-        <a href="{% url 'Book_Edit' pk=book.pk %}" role="button">Editar libro</a>
+        <a href="{% url 'Book_Edit' pk=book.pk %}" role="button">Editar</a>
+        <a href="{% url 'Book_Delete' pk=book.pk %}" role="button">Eliminar</a> 
     </article>
 {% endblock %}
